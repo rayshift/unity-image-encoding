@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
+	<IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX>
+	<IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux>
+  </PropertyGroup>
+
+	<PropertyGroup Condition="'$(IsWindows)'=='true'">
+		<DefineConstants>Windows</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(IsOSX)'=='true'">
+		<DefineConstants>OSX</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(IsLinux)'=='true'">
+		<DefineConstants>Linux</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+    <None Update="images\taiga.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Native\Linux64\" />
+    <Folder Include="Native\Win64\" />
+
+    <None Update="Native\Linux64\libUnityImageEncoding.Native.so">
+    </None>
+    <None Update="Native\Win64\UnityImageEncoding.Native.dll">
+    </None>
+    <ContentWithTargetPath Include="Native\Win64\UnityImageEncoding.Native.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <TargetPath>UnityImageEncoding.Native.dll</TargetPath>
+    </ContentWithTargetPath>
+    <ContentWithTargetPath Include="Native\Linux64\libUnityImageEncoding.Native.so">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <TargetPath>libUnityImageEncoding.Native.so</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta15" />
+  </ItemGroup>
+
+</Project>

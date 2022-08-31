@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ETCEncodingDemo": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
