@@ -1,15 +1,3 @@
-diff --git a/BlockData.cpp b/BlockData.cpp
-index de907d4..aad2f60 100644
---- a/BlockData.cpp
-+++ b/BlockData.cpp
-@@ -221,6 +221,7 @@ BlockData::~BlockData()
-     }
- }
- 
-+
- void BlockData::Process( const uint32_t* src, uint32_t blocks, size_t offset, size_t width, Channels type, bool dither, bool useHeuristics )
- {
-     auto dst = ((uint64_t*)( m_data + m_dataOffset )) + offset;
 diff --git a/ProcessRGB.cpp b/ProcessRGB.cpp
 index 4dc3bf2..95806fe 100644
 --- a/ProcessRGB.cpp
