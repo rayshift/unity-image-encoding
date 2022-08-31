@@ -1,0 +1,66 @@
+diff --git a/BlockData.cpp b/BlockData.cpp
+index de907d4..aad2f60 100644
+--- a/BlockData.cpp
++++ b/BlockData.cpp
+@@ -221,6 +221,7 @@ BlockData::~BlockData()
+     }
+ }
+ 
++
+ void BlockData::Process( const uint32_t* src, uint32_t blocks, size_t offset, size_t width, Channels type, bool dither, bool useHeuristics )
+ {
+     auto dst = ((uint64_t*)( m_data + m_dataOffset )) + offset;
+diff --git a/ProcessRGB.cpp b/ProcessRGB.cpp
+index 4dc3bf2..95806fe 100644
+--- a/ProcessRGB.cpp
++++ b/ProcessRGB.cpp
+@@ -12,9 +12,13 @@
+ #include "ProcessRGB.hpp"
+ #include "Tables.hpp"
+ #include "Vector.hpp"
++#if defined(__AVX2__) && defined _MSC_VER
++#define __SSE4_1__
++#endif
+ #if defined __SSE4_1__ || defined __AVX2__ || defined _MSC_VER
+ #  ifdef _MSC_VER
+ #    include <intrin.h>
++#define NOMINMAX
+ #    include <Windows.h>
+ #    define _bswap(x) _byteswap_ulong(x)
+ #    define _bswap64(x) _byteswap_uint64(x)
+diff --git a/Tables.cpp b/Tables.cpp
+index 5c7fd9c..2fd23d5 100644
+--- a/Tables.cpp
++++ b/Tables.cpp
+@@ -1,4 +1,17 @@
+ #include "Tables.hpp"
++#if defined _MSC_VER
++#define __SSE4_1__
++#endif
++
++#ifdef __AVX2__
++#  include <immintrin.h>
++#endif
++#ifdef __SSE4_1__
++#  include <smmintrin.h>
++#endif
++#ifdef __ARM_NEON
++#  include <arm_neon.h>
++#endif
+ 
+ const int32_t g_table[8][4] = {
+     {  2,  8,   -2,   -8 },
+diff --git a/Tables.hpp b/Tables.hpp
+index 69d7e8a..a6aa476 100644
+--- a/Tables.hpp
++++ b/Tables.hpp
+@@ -2,6 +2,9 @@
+ #define __TABLES_HPP__
+ 
+ #include <stdint.h>
++#if defined _MSC_VER
++#define __SSE4_1__
++#endif
+ 
+ #ifdef __AVX2__
+ #  include <immintrin.h>

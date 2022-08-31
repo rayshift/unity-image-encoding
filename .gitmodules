@@ -1,0 +1,3 @@
+[submodule "UnityImageEncoding.Native/src/lib/etcpak"]
+        path = UnityImageEncoding.Native/src/lib/etcpak
+        url = https://github.com/wolfpld/etcpak
