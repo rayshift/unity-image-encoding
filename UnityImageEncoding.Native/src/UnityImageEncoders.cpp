@@ -66,18 +66,18 @@ int EncodeETC(EncodeType type,
 	{
 	case ETC1_RGB:
 		if (dither) {
-			CompressEtc1RgbDither(srcAligned, dstAligned, height * 32, width);
+			CompressEtc1RgbDither(srcAligned, dstAligned, height * width / 16, width);
 		}
 		else
 		{
-			CompressEtc1Rgb(srcAligned, dstAligned, height * 32, width);
+			CompressEtc1Rgb(srcAligned, dstAligned, height * width / 16, width);
 		}
 		break;
 	case ETC2_RGB:
-		CompressEtc2Rgb(srcAligned, dstAligned, height * 32, width, false);
+		CompressEtc2Rgb(srcAligned, dstAligned, height * width / 16, width, false);
 		break;
 	case ETC2_RGBA:
-		CompressEtc2Rgba(srcAligned, dstAligned, height * 32, width, false);
+		CompressEtc2Rgba(srcAligned, dstAligned, height * width / 16, width, false);
 		break;
 	}
 
